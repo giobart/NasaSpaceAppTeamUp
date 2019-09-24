@@ -6,17 +6,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-      <meta charset="utf-8">
-      <title>Create an account</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Create an account</title>
 
-      <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
-      <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+         <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+        <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
+        <script src="https://kit.fontawesome.com/12c37f6554.js" crossorigin="anonymous"></script>
   </head>
 
   <body>
 
-    <div class="container">
-
+    <div class="container-fluid">
+        <div class="brand mx-3 blue"> <i class="fas fa-rocket"></i> Team-Up </div>
         <form:form method="POST" modelAttribute="userForm" class="form-signin">
             <h2 class="form-signin-heading">Create your account</h2>
             <spring:bind path="username">
@@ -78,7 +81,7 @@
         </form:form>
 
     </div>
-
+    <br><br><p class="blue footer"> Made with <i class="fas fa-heart"></i> by GDG Pisa </p>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
   </body>

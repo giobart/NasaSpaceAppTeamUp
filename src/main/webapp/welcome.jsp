@@ -7,97 +7,135 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Create an account</title>
-    <link href="${contextPath}/resources/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
+    <script src="https://kit.fontawesome.com/12c37f6554.js" crossorigin="anonymous"></script>
+    <style type="text/css">
+        .logout{
+            color: #fff !important;
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
+  <div class="container-fluid">
+    <div class="brand mx-3 blue"> <i class="fas fa-rocket"></i> Team-Up </div>
+    
     <c:if test="${pageContext.request.userPrincipal.name != null}">
         <form id="logoutForm" method="POST" action="${contextPath}/logout">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
+        <br>
+        <h4>Welcome ${name} ${surname}  <a onclick="document.forms['logoutForm'].submit()" class="btn btn-primary logout">Logout</a></h4>
+        <br>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item"><h5> My Group </h5></li>
+                    <li class="list-group-item">
+                    <c:if test="${groupinfo != null}">
+                            <div id="newClient">
+                                <p>
+                                <h4> <c:out value="${groupinfo.name}" /> </h4>
+                                <i><c:out value="${groupinfo.description}" /></i>
+                                </p>
+                            </div>
+                        <h4>Participants: </h4>
+                        <ul>
+                        <c:forEach items="${groupinfo.groupmates}" var="users">
+                            <li>
+                                <div id="newClient">
+                                    <p>
+                                        <c:out value="${users.name}" />
+                                        <i><c:out value="${users.surname}" /></i>
+                                        <i><c:out value="${users.email}" /></i>
+                                        <b><c:out value="${users.skills}" /></b>
+                                    </p>
+                                </div>
+                            </li>
+                        </c:forEach>
+                        </ul>
 
-        <h2>Welcome ${name} ${surname} | <a onclick="document.forms['logoutForm'].submit()">Logout</a></h2>
-
-        <h3> Groups available </h3>
-        <ul>
-        <c:forEach items="${groupsAvailables}" var="groupsAvailables">
-            <li><div id="newClient">
-                <p>
-                    <h4> <c:out value="${groupsAvailables.name}" /> </h4>
-                    <i><c:out value="${groupsAvailables.description}" /></i>
-                <c:if test="${groupinfo == null}">
-                    <a href="${contextPath}/welcome?joinGroup=${groupsAvailables.name}" >Join Group</a>
-                </c:if>
-                </p>
+                        <c:if test="${groupinfo != null}">
+                            <a href="${contextPath}/welcome?leaveGroup=${groupinfo.name}" >Leave Group</a>
+                        </c:if>
+                    </c:if>
+                    <c:if test="${groupinfo == null}">
+                        <h4>Create a new group</h4>
+                        <form:form action="${contextPath}/groupregistration" method="POST" modelAttribute="group">
+                            <div class="form-group">
+                                <form:label path="name">Name</form:label>
+                                <form:input path="name" class="form-control"></form:input>
+                                <form:errors path="name"></form:errors>
+                            </div>
+                            <div class="form-group">
+                                <form:label path="description">Description</form:label>
+                                <form:input path="description" class="form-control"></form:input>
+                                <form:errors path="description"></form:errors>
+                            </div>
+                            <input type="submit" class="btn btn-lg btn-primary btn-block" />
+                        </form:form>
+                    </c:if>
+                 </li>
+                </div>
+                </div>
             </div>
-            </li>
-        </c:forEach>
-        </ul>
+        </div> <!-- fine row -->
 
-        <h3> Users available </h3>
-        <ul>
-        <c:forEach items="${users}" var="users">
-            <li>
-                <div id="newClient">
-                    <p>
-                        <c:out value="${users.name}" />
-                        <i><c:out value="${users.surname}" /></i>
-                        <i><c:out value="${users.email}" /></i>
-                        <b><c:out value="${users.skills}" /></b>
-                    </p>
-                </div>
-            </li>
-        </c:forEach>
-        </ul>
+        <br><br>
 
-        <h3> My Group </h3>
-        <c:if test="${groupinfo != null}">
-                <div id="newClient">
-                    <p>
-                    <h4> <c:out value="${groupinfo.name}" /> </h4>
-                    <i><c:out value="${groupinfo.description}" /></i>
-                    </p>
-                </div>
-            <h4>Participants: </h4>
-            <ul>
-            <c:forEach items="${groupinfo.groupmates}" var="users">
-                <li>
-                    <div id="newClient">
-                        <p>
-                            <c:out value="${users.name}" />
-                            <i><c:out value="${users.surname}" /></i>
-                            <i><c:out value="${users.email}" /></i>
-                            <b><c:out value="${users.skills}" /></b>
-                        </p>
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-users"></i> Groups available </h5>
+                    <ul>
+                    <c:forEach items="${groupsAvailables}" var="groupsAvailables">
+                        <li><div id="newClient">
+                            <p>
+                                <h4> <c:out value="${groupsAvailables.name}" /> </h4>
+                                <i><c:out value="${groupsAvailables.description}" /></i>
+                            <c:if test="${groupinfo == null}">
+                                <a href="${contextPath}/welcome?joinGroup=${groupsAvailables.name}" >Join Group</a>
+                            </c:if>
+                            </p>
+                        </div>
+                        </li>
+                    </c:forEach>
+                    </ul>
                     </div>
-                </li>
-            </c:forEach>
-            </ul>
-
-            <c:if test="${groupinfo != null}">
-                <a href="${contextPath}/welcome?leaveGroup=${groupinfo.name}" >Leave Group</a>
-            </c:if>
-
-        </c:if>
-        <c:if test="${groupinfo == null}">
-            <h4>Create a new group</h4>
-            <form:form action="${contextPath}/groupregistration" method="POST" modelAttribute="group">
-                <div class="form-group">
-                    <form:label path="name">Name</form:label>
-                    <form:input path="name"></form:input>
-                    <form:errors path="name"></form:errors>
                 </div>
-                <div class="form-group">
-                    <form:label path="description">Description</form:label>
-                    <form:input path="description"></form:input>
-                    <form:errors path="description"></form:errors>
-                </div>
-                <input type="submit" />
-            </form:form>
-        </c:if>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                  <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-user-alt"></i> Users available</h5>
 
+                    <ul>
+                    <c:forEach items="${users}" var="users">
+                        <li>
+                            <div id="newClient">
+                                <p>
+                                    <c:out value="${users.name}" />
+                                    <i><c:out value="${users.surname}" /></i>
+                                    <i><c:out value="${users.email}" /></i>
+                                    <b><c:out value="${users.skills}" /></b>
+                                </p>
+                            </div>
+                        </li>
+                    </c:forEach>
+                    </ul>
+                </div>
+            </div>
+            </div>
+        </div> <!-- fine row -->
     </c:if>
+    <br><br>
+    <p class="blue footer"> Made with <i class="fas fa-heart"></i> by GDG Pisa </p>
   </div>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
