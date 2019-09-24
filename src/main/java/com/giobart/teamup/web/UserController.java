@@ -129,7 +129,7 @@ public class UserController {
         model.addAttribute("groupsAvailables",groupRepository.findAll().stream().filter(group -> group.getGroupmates().size()<6).collect(Collectors.toList()));
 
         //showing users
-        model.addAttribute("users",userRepository.findAll().stream().filter(usr -> usr.getGroup()==null).collect(Collectors.toList()));
+        model.addAttribute("users",userRepository.findAll());
 
         //Your Group
         model.addAttribute("groupinfo", u != null ? u.getGroup()!= null ? u.getGroup() : null : null);
