@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
 <!DOCTYPE html>
@@ -29,7 +30,10 @@
         </form>
         <br>
         <h4>Welcome ${name} ${surname}  <a onclick="document.forms['logoutForm'].submit()" class="btn btn-primary logout">Logout</a></h4>
-        <br>
+        <i>In case of problems please send an email to: giobarty@gmail.com</i>
+        <br><br>
+
+        <!----------------- GROUP INFO ----------------->
         <div class="row">
             <div class="col-sm-6">
                 <div class="card">
@@ -41,7 +45,7 @@
                             <div id="newClient">
                                 <p>
                                 <h4> <c:out value="${groupinfo.name}" /> </h4>
-                                <i><c:out value="${groupinfo.description}" /></i>
+                                <i><c:out value="${groupinfo.description}"/> [members ${fn:length(groupinfo.groupmates)}/5] </i>
                                 </p>
                             </div>
                         <h4>Participants: </h4>
@@ -66,7 +70,7 @@
                     </c:if>
                     <c:if test="${groupinfo == null}">
                         <h4>Create a new group</h4>
-                        <form:form action="${contextPath}/groupregistration" method="POST" modelAttribute="group">
+                        <form:form action="${contextPath}/welcome" method="POST" modelAttribute="group">
                             <div class="form-group">
                                 <form:label path="name">Name</form:label>
                                 <form:input path="name" class="form-control"></form:input>
@@ -88,6 +92,7 @@
 
         <br><br>
 
+        <!----------------- GROUP LIST ----------------->
         <div class="row">
             <div class="col-sm-6">
                 <div class="card">
@@ -98,7 +103,8 @@
                         <li><div id="newClient">
                             <p>
                                 <h4> <c:out value="${groupsAvailables.name}" /> </h4>
-                                <i><c:out value="${groupsAvailables.description}" /></i>
+                                <i><c:out value="${groupsAvailables.description}" /> </i>
+                            <i>[members <b>${fn:length(groupsAvailables.groupmates)}</b>/5]</i>
                             <c:if test="${groupinfo == null}">
                                 <a href="${contextPath}/welcome?joinGroup=${groupsAvailables.name}" >Join Group</a>
                             </c:if>
@@ -110,18 +116,26 @@
                     </div>
                 </div>
             </div>
+
+            <!----------------- USER LIST ----------------->
             <div class="col-sm-6">
                 <div class="card">
                   <div class="card-body">
-                    <h5 class="card-title"><i class="fas fa-user-alt"></i> Users available</h5>
-
+                    <h5 class="card-title"><i class="fas fa-user-alt"></i> Users list </h5>
+                      (<s>this</s> means user already in a group)
                     <ul>
                     <c:forEach items="${users}" var="users">
                         <li>
                             <div id="newClient">
                                 <p>
-                                    <c:out value="${users.name}" />
-                                    <i><c:out value="${users.surname}" /></i>
+                                    <c:if test="${users.group != null}">
+                                        <s>
+                                    </c:if>
+                                        <c:out value="${users.name}" />
+                                        <i><c:out value="${users.surname}" /></i>
+                                    <c:if test="${users.group != null}">
+                                        </s>
+                                    </c:if>
                                     <i><c:out value="${users.email}" /></i>
                                     <b><c:out value="${users.skills}" /></b>
                                 </p>

@@ -33,7 +33,7 @@ public class GroupValidator implements Validator {
 
         //GroupDescription check
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
-        if (group.getName().length() > 50 || group.getName().length() < 1) {
+        if (group.getDescription().length() > 50 || group.getDescription().length() < 5) {
             errors.rejectValue("description", "Groupdescription.valid");
         }
 

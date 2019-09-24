@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.util.stream.Collectors;
@@ -60,23 +61,6 @@ public class UserController {
         return "redirect:/welcome";
     }
 
-    @RequestMapping(value = "/groupregistration", method = RequestMethod.POST)
-    public String registration(@Valid @ModelAttribute("group") Group group, BindingResult bindingResult, ModelMap model) {
-        groupValidator.validate(group,bindingResult);
-
-        if (bindingResult.hasErrors()) {
-            return "redirect:/welcome";
-        }
-
-        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (principal instanceof UserDetails) {
-            User u = userService.findByUsername(((UserDetails) principal).getUsername());
-            groupService.save(group,u);
-        }
-
-        return "redirect:/welcome";
-    }
-
     @GetMapping("/login")
     public String login(Model model, String error, String logout) {
         if (error != null)
@@ -88,13 +72,38 @@ public class UserController {
         return "login";
     }
 
+    @PostMapping(value = "/welcome")
+    public ModelAndView registration(@Valid @ModelAttribute("group") Group group, BindingResult bindingResult, Model model) {
+        groupValidator.validate(group,bindingResult);
+
+        renderPage(model,null,null);
+
+        if (bindingResult.hasErrors()) {
+            return new ModelAndView("welcome");
+        }
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            User u = userService.findByUsername(((UserDetails) principal).getUsername());
+            groupService.save(group,u);
+        }
+
+        return new ModelAndView("redirect:welcome");
+    }
+
     @GetMapping({"/", "/welcome"})
     public String welcome(Model model,String joinGroup,String leaveGroup) {
 
-        User u = null;
-
         model.addAttribute("group", new Group());
 
+        renderPage(model,joinGroup,leaveGroup);
+
+        return "welcome";
+    }
+
+    private void renderPage(Model model,String joinGroup,String leaveGroup){
+
+        User u = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             u = userService.findByUsername(((UserDetails) principal).getUsername());
@@ -126,7 +135,5 @@ public class UserController {
 
         //full groups
         model.addAttribute("groupsFull",groupService.getAllAvailableGroups());
-
-        return "welcome";
     }
 }
