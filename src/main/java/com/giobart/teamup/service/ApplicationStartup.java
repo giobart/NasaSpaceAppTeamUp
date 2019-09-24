@@ -23,21 +23,6 @@ public class ApplicationStartup
     @Override
     public void onApplicationEvent(final ApplicationReadyEvent event) {
 
-        Group group = new Group();
-        group.setName("The best programmers of the world");
-        group.setDescription("we are awesome");
-        groupRepository.save(group);
-
-        User u = new User();
-        u.setPassword("123456");
-        u.setPasswordConfirm("123456");
-        u.setUsername("admin");
-        u.setEmail("aaa@gmail.com");
-        u.setName("aaa");
-        u.setSurname("bbb");
-        u.setSkills("hello world maker");
-
-        userService.save(u);
 
     }
 
