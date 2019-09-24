@@ -1,10 +1,8 @@
-package com.hellokoding.auth.repository;
+package com.giobart.teamup.repository;
 
 
-import com.hellokoding.auth.model.Group;
+import com.giobart.teamup.model.Group;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 public interface GroupRepository extends JpaRepository<Group, Long> {
 

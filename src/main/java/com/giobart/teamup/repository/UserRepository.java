@@ -1,9 +1,7 @@
-package com.hellokoding.auth.repository;
+package com.giobart.teamup.repository;
 
-import com.hellokoding.auth.model.User;
+import com.giobart.teamup.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
     User findByUsername(String username);

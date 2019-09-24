@@ -1,6 +1,6 @@
-package com.hellokoding.auth.service;
+package com.giobart.teamup.service;
 
-import com.hellokoding.auth.model.User;
+import com.giobart.teamup.model.User;
 
 public interface UserService {
     void save(User user);

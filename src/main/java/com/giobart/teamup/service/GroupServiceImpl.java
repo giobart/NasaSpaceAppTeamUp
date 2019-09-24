@@ -1,12 +1,10 @@
-package com.hellokoding.auth.service;
+package com.giobart.teamup.service;
 
-import com.hellokoding.auth.model.Group;
-import com.hellokoding.auth.model.User;
-import com.hellokoding.auth.repository.GroupRepository;
+import com.giobart.teamup.repository.GroupRepository;
+import com.giobart.teamup.model.Group;
+import com.giobart.teamup.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.HashSet;
 
 @Service
 public class GroupServiceImpl implements GroupService {

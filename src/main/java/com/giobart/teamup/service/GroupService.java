@@ -1,7 +1,7 @@
-package com.hellokoding.auth.service;
+package com.giobart.teamup.service;
 
-import com.hellokoding.auth.model.Group;
-import com.hellokoding.auth.model.User;
+import com.giobart.teamup.model.Group;
+import com.giobart.teamup.model.User;
 
 public interface GroupService {
     void save(Group group,User u);

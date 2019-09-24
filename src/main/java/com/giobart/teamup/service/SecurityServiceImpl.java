@@ -1,4 +1,4 @@
-package com.hellokoding.auth.service;
+package com.giobart.teamup.service;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

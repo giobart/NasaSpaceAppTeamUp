@@ -1,15 +1,14 @@
-package com.hellokoding.auth.web;
+package com.giobart.teamup.web;
 
-import com.hellokoding.auth.model.Group;
-import com.hellokoding.auth.model.User;
-import com.hellokoding.auth.repository.GroupRepository;
-import com.hellokoding.auth.repository.UserRepository;
-import com.hellokoding.auth.service.GroupService;
-import com.hellokoding.auth.service.SecurityService;
-import com.hellokoding.auth.service.UserService;
-import com.hellokoding.auth.validator.UserValidator;
+import com.giobart.teamup.model.Group;
+import com.giobart.teamup.repository.GroupRepository;
+import com.giobart.teamup.repository.UserRepository;
+import com.giobart.teamup.service.GroupService;
+import com.giobart.teamup.service.SecurityService;
+import com.giobart.teamup.service.UserService;
+import com.giobart.teamup.validator.UserValidator;
+import com.giobart.teamup.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;

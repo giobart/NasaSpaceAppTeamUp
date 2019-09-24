@@ -1,8 +1,8 @@
-package com.hellokoding.auth.service;
+package com.giobart.teamup.service;
 
-import com.hellokoding.auth.model.Role;
-import com.hellokoding.auth.model.User;
-import com.hellokoding.auth.repository.UserRepository;
+import com.giobart.teamup.repository.UserRepository;
+import com.giobart.teamup.model.Role;
+import com.giobart.teamup.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

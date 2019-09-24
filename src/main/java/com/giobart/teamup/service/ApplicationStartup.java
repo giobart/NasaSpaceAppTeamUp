@@ -1,7 +1,7 @@
-package com.hellokoding.auth.service;
+package com.giobart.teamup.service;
 
-import com.hellokoding.auth.model.Group;
-import com.hellokoding.auth.repository.GroupRepository;
+import com.giobart.teamup.repository.GroupRepository;
+import com.giobart.teamup.model.Group;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.ApplicationListener;

@@ -1,7 +1,7 @@
-package com.hellokoding.auth.validator;
+package com.giobart.teamup.validator;
 
-import com.hellokoding.auth.model.User;
-import com.hellokoding.auth.service.UserService;
+import com.giobart.teamup.model.User;
+import com.giobart.teamup.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
