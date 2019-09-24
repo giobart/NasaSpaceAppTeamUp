@@ -43,7 +43,7 @@
                 </div>
             </spring:bind>
 
-            <spring:bind path="surname">
+            <spring:bind path="email">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
                     <form:input type="text" path="email" class="form-control" placeholder="email"
                                 autofocus="true"></form:input>
@@ -51,7 +51,7 @@
                 </div>
             </spring:bind>
 
-            <spring:bind path="surname">
+            <spring:bind path="skills">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
                     <form:input type="text" path="skills" class="form-control" placeholder="Skills list:"
                                 autofocus="true"></form:input>

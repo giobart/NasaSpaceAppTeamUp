@@ -86,10 +86,12 @@
                 <div class="form-group">
                     <form:label path="name">Name</form:label>
                     <form:input path="name"></form:input>
+                    <form:errors path="name"></form:errors>
                 </div>
                 <div class="form-group">
                     <form:label path="description">Description</form:label>
                     <form:input path="description"></form:input>
+                    <form:errors path="description"></form:errors>
                 </div>
                 <input type="submit" />
             </form:form>

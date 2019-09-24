@@ -6,6 +6,7 @@ import com.giobart.teamup.repository.UserRepository;
 import com.giobart.teamup.service.GroupService;
 import com.giobart.teamup.service.SecurityService;
 import com.giobart.teamup.service.UserService;
+import com.giobart.teamup.validator.GroupValidator;
 import com.giobart.teamup.validator.UserValidator;
 import com.giobart.teamup.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,13 +33,10 @@ public class UserController {
     private UserValidator userValidator;
 
     @Autowired
-    private GroupRepository groupRepository;
-
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private GroupService groupService;
+
+    @Autowired
+    private GroupValidator groupValidator;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -64,6 +62,7 @@ public class UserController {
 
     @RequestMapping(value = "/groupregistration", method = RequestMethod.POST)
     public String registration(@Valid @ModelAttribute("group") Group group, BindingResult bindingResult, ModelMap model) {
+        groupValidator.validate(group,bindingResult);
 
         if (bindingResult.hasErrors()) {
             return "redirect:/welcome";
@@ -90,7 +89,7 @@ public class UserController {
     }
 
     @GetMapping({"/", "/welcome"})
-    public String welcome(Model model,String joinGroup,String leaveGroup, String GroupName, String GroupDescription) {
+    public String welcome(Model model,String joinGroup,String leaveGroup) {
 
         User u = null;
 
@@ -114,29 +113,19 @@ public class UserController {
                 groupService.removeFromGroup(u.getUsername());
             }
 
-            //create group if requested
-            if(GroupName != null && GroupDescription !=null){
-                Group group = new Group();
-                group.setDescription(GroupDescription);
-                group.setName(GroupName);
-                groupService.save(group,u);
-            }
-
         }
 
-
         //Available groups
-        model.addAttribute("groupsAvailables",groupRepository.findAll().stream().filter(group -> group.getGroupmates().size()<6).collect(Collectors.toList()));
+        model.addAttribute("groupsAvailables",groupService.getAllAvailableGroups());
 
         //showing users
-        model.addAttribute("users",userRepository.findAll().stream().filter(usr -> usr.getGroup()==null).collect(Collectors.toList()));
+        model.addAttribute("users",userService.getAllUsers());
 
         //Your Group
-        model.addAttribute("groupinfo", u != null ? u.getGroup()!= null ? u.getGroup() : null : null);
+        model.addAttribute("groupinfo", u != null ? u.getGroup() : null);
 
         //full groups
-        model.addAttribute("groupsFull",groupRepository.findAll().stream().filter(group -> group.getGroupmates().size()==5).collect(Collectors.toList()));
-
+        model.addAttribute("groupsFull",groupService.getAllAvailableGroups());
 
         return "welcome";
     }
