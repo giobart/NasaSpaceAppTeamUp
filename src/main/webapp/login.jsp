@@ -42,6 +42,7 @@
         </div>
       </form>
     </div>
+    <br><br>
     <p class="blue footer"> Made with <i class="fas fa-heart"></i> by GDG Pisa </p>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
     <script src="${contextPath}/resources/js/bootstrap.min.js"></script>
