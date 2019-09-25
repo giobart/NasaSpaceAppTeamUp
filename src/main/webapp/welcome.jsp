@@ -29,7 +29,10 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
         <br>
-        <h4>Welcome ${name} ${surname}  <a onclick="document.forms['logoutForm'].submit()" class="btn btn-primary logout">Logout</a></h4>
+        <h4>Welcome ${name} ${surname}
+            <a onclick="document.forms['logoutForm'].submit()" class="btn btn-primary logout">Logout</a>
+            <a href="${contextPath}/accountinfo" class="btn btn-primary logout">Account Information</a>
+        </h4>
         <i>In case of problems please send an email to: giobarty@gmail.com</i>
         <br><br>
 

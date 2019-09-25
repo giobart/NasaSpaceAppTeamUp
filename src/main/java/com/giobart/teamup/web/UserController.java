@@ -1,12 +1,11 @@
 package com.giobart.teamup.web;
 
 import com.giobart.teamup.model.Group;
-import com.giobart.teamup.repository.GroupRepository;
-import com.giobart.teamup.repository.UserRepository;
 import com.giobart.teamup.service.GroupService;
 import com.giobart.teamup.service.SecurityService;
 import com.giobart.teamup.service.UserService;
 import com.giobart.teamup.validator.GroupValidator;
+import com.giobart.teamup.validator.UserInfoValidator;
 import com.giobart.teamup.validator.UserValidator;
 import com.giobart.teamup.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,13 +13,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.stream.Collectors;
 
 @Controller
 public class UserController {
@@ -32,6 +29,9 @@ public class UserController {
 
     @Autowired
     private UserValidator userValidator;
+
+    @Autowired
+    private UserInfoValidator userInfoValidator;
 
     @Autowired
     private GroupService groupService;
@@ -57,6 +57,48 @@ public class UserController {
         userService.save(userForm);
 
         securityService.autoLogin(userForm.getUsername(), userForm.getPasswordConfirm());
+
+        return "redirect:/welcome";
+    }
+
+    @GetMapping("/accountinfo")
+    public String accountinfo(Model model){
+        model.addAttribute("userInfo", new User());
+
+        User u = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            u = userService.findByUsername(((UserDetails) principal).getUsername());
+            model.addAttribute("name",u.getName());
+            model.addAttribute("surname",u.getSurname());
+            model.addAttribute("email",u.getEmail());
+            model.addAttribute("skills",u.getSkills());
+        }
+
+        return "accountinformation";
+    }
+
+    @PostMapping("/accountinfo")
+    public String accountinfo(@ModelAttribute("userInfo") User userForm, BindingResult bindingResult, Model model){
+        User u = null;
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            u = userService.findByUsername(((UserDetails) principal).getUsername());
+        }
+
+        userInfoValidator.validate(userForm, bindingResult);
+
+        if (bindingResult.hasErrors() || u==null) {
+            model.addAttribute("name",u.getName());
+            model.addAttribute("surname",u.getSurname());
+            model.addAttribute("email",u.getEmail());
+            model.addAttribute("skills",u.getSkills());
+            return "accountinformation";
+        }
+
+        userForm.setUsername(u.getUsername());
+        userService.update(userForm);
 
         return "redirect:/welcome";
     }
