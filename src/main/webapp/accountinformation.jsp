@@ -29,21 +29,14 @@
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
         <br>
-        <h4>Welcome ${name} ${surname}
+        <h4>Account Informations
             <a onclick="document.forms['logoutForm'].submit()" class="btn btn-primary logout">Logout</a>
             <a href="${contextPath}/welcome" class="btn btn-primary logout">Home</a>
         </h4>        <i>In case of problems please send an email to: giobarty@gmail.com</i>
         <br><br>
 
         <!----------------- ACCOUNT INFO ----------------->
-        <div class="row">
-            <div class="col-sm-6">
-                <div class="card">
-                <div class="card-body">
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item"><h5> My Group </h5></li>
-                    <li class="list-group-item">
-                        <h1>My Account</h1>
+        <div class="container-fluid">
 
                         <form:form action="${contextPath}/accountinfo" method="POST" modelAttribute="userInfo" class="form-signin">
 
@@ -82,11 +75,7 @@
                             <button class="btn btn-lg btn-primary btn-block" type="submit">Save</button>
                         </form:form>
 
-                    </li>
-                </ul>
-                </div>
-                </div>
-            </div>
+
         </div> <!-- fine row -->
 
         <br><br>
