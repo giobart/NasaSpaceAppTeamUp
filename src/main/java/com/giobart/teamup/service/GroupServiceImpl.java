@@ -39,7 +39,7 @@ public class GroupServiceImpl implements GroupService {
     public void joinGroup(String group, String user) {
         User u = userService.findByUsername(user);
         Group g = groupRepository.findByName(group);
-        if(g.getGroupmates().size()<5 && u.getGroup()==null) {
+        if(g.getGroupmates().size()<15 && u.getGroup()==null) {
             g.getGroupmates().add(u);
             u.setGroup(g);
             groupRepository.save(g);
@@ -68,12 +68,12 @@ public class GroupServiceImpl implements GroupService {
 
     @Override
     public List<Group> getAllAvailableGroups() {
-        return groupRepository.findAll().stream().filter(group -> group.getGroupmates().size()<6).collect(Collectors.toList());
+        return groupRepository.findAll().stream().filter(group -> group.getGroupmates().size()<16).collect(Collectors.toList());
     }
 
     @Override
     public List<Group> getAllFullGroups() {
-        return groupRepository.findAll().stream().filter(group -> group.getGroupmates().size()==5).collect(Collectors.toList());
+        return groupRepository.findAll().stream().filter(group -> group.getGroupmates().size()==15).collect(Collectors.toList());
     }
 
 }
