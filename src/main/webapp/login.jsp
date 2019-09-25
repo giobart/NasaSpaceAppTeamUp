@@ -22,7 +22,7 @@
   </head>
 
   <body>
-    <div class="brand mx-3 blue center"> <i class="fas fa-rocket"></i> Team-Up </div>
+   <div class="brand mx-3 blue center"> <img src="${contextPath}/resources/img/nasa.png" alt="logo" height="200rem"><br> <i class="fas fa-rocket"></i> Team-Up </div>
     <div class="container-fluid">
       
       <form method="POST" action="${contextPath}/login" class="form-signin">
