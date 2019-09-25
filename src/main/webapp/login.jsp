@@ -14,11 +14,6 @@
       <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
       <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
       <script src="https://kit.fontawesome.com/12c37f6554.js" crossorigin="anonymous"></script>
-      <style type="text/css">
-        .footer{
-          position: absolute;
-        }
-      </style>
   </head>
 
   <body>
