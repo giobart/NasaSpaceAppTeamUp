@@ -5,8 +5,13 @@ import com.giobart.teamup.model.Group;
 import com.giobart.teamup.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class GroupServiceImpl implements GroupService {
 
     @Autowired
@@ -34,7 +39,7 @@ public class GroupServiceImpl implements GroupService {
     public void joinGroup(String group, String user) {
         User u = userService.findByUsername(user);
         Group g = groupRepository.findByName(group);
-        if(g.getGroupmates().size()<5 && u.getGroup()==null) {
+        if(g.getGroupmates().size()<15 && u.getGroup()==null) {
             g.getGroupmates().add(u);
             u.setGroup(g);
             groupRepository.save(g);
@@ -55,4 +60,20 @@ public class GroupServiceImpl implements GroupService {
             }
         }
     }
+
+    @Override
+    public List<Group> getAllGroups() {
+        return groupRepository.findAll();
+    }
+
+    @Override
+    public List<Group> getAllAvailableGroups() {
+        return groupRepository.findAll().stream().filter(group -> group.getGroupmates().size()<16).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Group> getAllFullGroups() {
+        return groupRepository.findAll().stream().filter(group -> group.getGroupmates().size()==15).collect(Collectors.toList());
+    }
+
 }
