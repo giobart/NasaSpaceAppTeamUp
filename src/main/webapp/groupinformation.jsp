@@ -43,7 +43,7 @@
                 <a class="nav-item nav-link disabled"> </a>
                 <a href="${contextPath}/welcome" class="btn btn-primary logout">Home</a>
                 <a class="nav-item nav-link disabled"> </a>
-                <a onclick="document.forms['logoutForm'].submit()" class="nav-item nav-link active btn btn-secondary logout">Logout</a>
+                <a onclick="document.forms['logoutForm'].submit()" class="nav-item nav-link active btn btn-secondary logout ">Logout</a>
             </div>
         </div>
     </nav>
@@ -61,29 +61,23 @@
         <!----------------- ACCOUNT INFO ----------------->
         <div class="container-fluid">
 
-            <form:form action="${contextPath}/accountinfo" method="POST" modelAttribute="userInfo" class="form-signin">
+            <form:form action="${contextPath}/groupinfo" method="POST" modelAttribute="groupInfo" class="form-signin">
 
-                <form:label type="text" path="username">Username: <b> ${username} </b> </form:label><br>
-                <form:label type="text" path="name">Name: <b> ${name} </b> </form:label><br>
-                <form:label type="text" path="surname">Surname: <b> ${surname} </b> </form:label><br>
-                <form:label type="text" path="email">Email: <b> ${email} </b> </form:label><br>
-                <form:label type="text" path="degreeCourse">Degree Course: <b> ${degreeCourse} </b> </form:label><br>
+                <form:label type="text" path="name">Group name: <b> ${groupName} </b> </form:label><br>
 
-                <form:label type="text" path="roles">Roles:
-
-                    <c:forEach items="${roles}" var="role">
-
-                        <c:out value="${role.name}"> </c:out>
-
-                    </c:forEach>
-
-                </form:label>
-
-                <spring:bind path="skills">
+                <spring:bind path="telegramGroup">
                     <div class="form-group ${status.error ? 'has-error' : ''}">
-                        <form:input type="text" path="skills" class="form-control" placeholder="Skills list: ${skills}"
+                        <form:input type="text" path="telegramGroup" class="form-control" placeholder="Telegram group: ${telegramGroup}"
                                     autofocus="true"></form:input>
-                        <form:errors path="skills"></form:errors>
+                        <form:errors path="telegramGroup"></form:errors>
+                    </div>
+                </spring:bind>
+
+                <spring:bind path="description">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <form:input type="text" path="description" class="form-control" placeholder="Challenge: ${description}"
+                                    autofocus="true"></form:input>
+                        <form:errors path="description"></form:errors>
                     </div>
                 </spring:bind>
 

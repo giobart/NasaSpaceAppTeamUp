@@ -1,11 +1,14 @@
 package com.giobart.teamup.model;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "competitiongroup")
+@Data
 public class Group {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,39 +18,12 @@ public class Group {
 
     private String description;
 
+    private String telegramGroup;
+
     @OneToMany()
     private List<User> groupmates = new ArrayList<>();
 
+    @ManyToMany
+    private List<User> groupFollowers = new ArrayList<>();
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public List<User> getGroupmates() {
-        return groupmates;
-    }
-
-    public void setGroupmates(List<User> groupmates) {
-        this.groupmates = groupmates;
-    }
 }

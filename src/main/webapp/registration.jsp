@@ -54,6 +54,14 @@
                 </div>
             </spring:bind>
 
+            <spring:bind path="degreeCourse">
+                <div class="form-group ${status.error ? 'has-error' : ''}">
+                    <form:input type="text" path="degreeCourse" class="form-control" placeholder="Degree Course"
+                                autofocus="true"></form:input>
+                    <form:errors path="degreeCourse"></form:errors>
+                </div>
+            </spring:bind>
+
             <spring:bind path="skills">
                 <div class="form-group ${status.error ? 'has-error' : ''}">
                     <form:input type="text" path="skills" class="form-control" placeholder="Skills list:"

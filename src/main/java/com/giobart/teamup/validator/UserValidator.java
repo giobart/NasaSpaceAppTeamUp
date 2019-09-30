@@ -60,5 +60,10 @@ public class UserValidator implements Validator {
         if (user.getSurname().length()>20 || user.getSurname().length()<2) {
             errors.rejectValue("surname", "Surname.valid");
         }
+
+        //degree check
+        if (user.getDegreeCourse().length()>30 || user.getSurname().length()<2) {
+            errors.rejectValue("degreeCourse", "Degree.valid");
+        }
     }
 }
