@@ -27,7 +27,7 @@ public class GroupValidator implements Validator {
 
         //Groupname check
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
-        if (group.getName().length() > 15 || group.getName().length() < 4) {
+        if (group.getName().length() > 30 || group.getName().length() < 4) {
             errors.rejectValue("name", "Groupname.valid");
         }
 

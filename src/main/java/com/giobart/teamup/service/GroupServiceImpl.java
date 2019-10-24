@@ -51,6 +51,13 @@ public class GroupServiceImpl implements GroupService {
             oldGroup.setDescription(group.getDescription());
         }
 
+        if(group.getName()!=null){
+            group.setName(group.getName().trim());
+            if(groupRepository.findByName(group.getName())==null) {
+                oldGroup.setName(group.getName());
+            }
+        }
+
         groupRepository.save(oldGroup);
     }
 

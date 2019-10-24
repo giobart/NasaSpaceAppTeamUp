@@ -22,6 +22,14 @@ public class GroupInfoValidator implements Validator {
     public void validate(Object o, Errors errors) {
         Group group = (Group) o;
 
+        //name check
+        if(group.getName().isEmpty() || group.getName() == null){
+            group.setName(null);
+        }else
+        if (group.getName().length()>30 || group.getName().length()<4 ){
+            errors.rejectValue("name", "Groupname.valid");
+        }
+
         //telegram link check
         if(group.getTelegramGroup().isEmpty() || group.getTelegramGroup() == null){
           group.setTelegramGroup(null);
@@ -30,7 +38,7 @@ public class GroupInfoValidator implements Validator {
             errors.rejectValue("telegramGroup", "GroupLink.valid");
         }
 
-        //telegram link check
+        //description check
         if(group.getDescription().isEmpty() || group.getDescription()==null ){
             group.setDescription(null);
         }else

@@ -14,9 +14,15 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
           rel="stylesheet">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
     <link rel="stylesheet" href="${contextPath}/resources/css/common.css">
     <script src="https://kit.fontawesome.com/12c37f6554.js" crossorigin="anonymous"></script>
     <style type="text/css">
@@ -34,20 +40,23 @@
 </form>
 
 <div class="container-fluid">
-<nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" style="z-index:9999">
-    <div class="brand mx-3 blue "><i class="fas fa-rocket"></i> Team-Up </div>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="navbar-collapse collapse order-3 " id="navbarNavAltMarkup">
-        <div class="navbar-nav ml-auto">
-            <a class="nav-item nav-link disabled">  </a>
-            <a href="${contextPath}/accountinfo" class="nav-item nav-link active btn btn-primary logout">Account </a>
-            <a class="nav-item nav-link disabled">  </a>
-            <a onclick="document.forms['logoutForm'].submit()" class="nav-item nav-link active btn btn-secondary logout">Logout</a>
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top" style="z-index:9999">
+        <div class="brand mx-3 blue "><i class="fas fa-rocket"></i> Team-Up</div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+                aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse order-3 " id="navbarNavAltMarkup">
+            <div class="navbar-nav ml-auto">
+                <a class="nav-item nav-link disabled"> </a>
+                <a href="${contextPath}/accountinfo"
+                   class="nav-item nav-link active btn btn-primary logout">Account </a>
+                <a class="nav-item nav-link disabled"> </a>
+                <a onclick="document.forms['logoutForm'].submit()"
+                   class="nav-item nav-link active btn btn-secondary logout">Logout</a>
+            </div>
         </div>
-    </div>
-</nav>
+    </nav>
 </div>
 
 <div class="container-fluid">
@@ -55,11 +64,11 @@
     <c:if test="${pageContext.request.userPrincipal.name != null}">
 
     <div class="dropdown-divider"></div>
-        <div class="form-group col-12">
-            <hr>
-        </div>
+    <div class="form-group col-12">
+        <hr>
+    </div>
 
-    <div class="row w-100">
+    <div class="row">
 
         <!----------------- (non Mentors only) GROUP INFO ----------------->
         <div class="col-sm-6">
@@ -113,8 +122,12 @@
                                     </ul>
 
                                     <c:if test="${groupinfo != null}">
-                                        <a href="${contextPath}/welcome?leaveGroup=${groupinfo.name}"
-                                           class="btn btn-primary active">Leave Group</a>
+                                        <span>
+                                        <form:form name="leaveGroupForm" method="POST" action="/group/leaveGroup">
+                                            <input type="hidden" name="groupname" value="${groupinfo.name}">
+                                            <input type="submit" name="LeaveGroupButton"  class="btn btn-primary active" value="Leave Group" />
+                                        </form:form>
+                                        </span>
                                     </c:if>
                                     <c:if test="${groupinfo != null}">
                                         <a href="${contextPath}/groupinfo"
@@ -123,7 +136,7 @@
                                 </c:if>
                                 <c:if test="${groupinfo == null}">
                                     <h4>Create a new group</h4>
-                                    <form:form action="${contextPath}/welcome" method="POST" modelAttribute="group">
+                                    <form:form action="/group/new" method="POST" modelAttribute="group">
                                         <div class="form-group">
                                             <form:label path="name">Name</form:label>
                                             <form:input path="name" class="form-control"></form:input>
@@ -201,8 +214,12 @@
                                         </ul>
 
                                         <c:if test="${groupinfo != null}">
-                                            <a href="${contextPath}/welcome?unfollowGroup=${groupinfo.name}"
-                                               class="btn btn-primary active">Unfollow Group</a>
+                                            <span>
+                                            <form:form name="unfollowGroupForm" method="POST" action="/group/unfollowGroup" >
+                                                <input type="hidden" name="groupname" value="${groupinfo.name}">
+                                                <input type="submit" name="LeaveGroupButton"  class="btn btn-primary active" value="Unfollow Group" />
+                                            </form:form>
+                                            </span>
                                         </c:if>
                                     </c:if>
 
@@ -235,30 +252,52 @@
                                             <div class="dropdown-divider"></div>
                                             <i>Challenge: <c:out value="${groupsAvailables.description}"/> </i><br>
                                             <c:if test="${ ! empty groupsAvailables.groupFollowers}">
-                                                <br><h5>Followers: </h5>
+                                                <br>
+                                                <p>
+                                                    <button class="btn btn-secondary" type="button"
+                                                            data-toggle="collapse"
+                                                            data-target="#collapseGroup${groupsAvailables.id}"
+                                                            aria-expanded="false" aria-controls="collapseExample">
+                                                        Followers
+                                                    </button>
+                                                </p>
                                             </c:if>
-                                            <ul>
-                                                <c:forEach items="${groupsAvailables.groupFollowers}" var="users">
-                                                    <li>
-                                                        <div id="newClient">
-                                                            <p>
-                                                                <c:out value="${users.name}"/>
-                                                                <i><c:out value="${users.surname}"/></i>
-                                                            </p>
-                                                        </div>
-                                                    </li>
-                                                </c:forEach>
-                                            </ul>
+                                            <div class="collapse" id="collapseGroup${groupsAvailables.id}">
+                                                <div class="card card-body">
+                                                    <ul>
+                                                        <c:forEach items="${groupsAvailables.groupFollowers}"
+                                                                   var="users">
+                                                            <li>
+                                                                <div id="newClient">
+                                                                    <p>
+                                                                        <c:out value="${users.name}"/>
+                                                                        <i><c:out value="${users.surname}"/></i>
+                                                                    </p>
+                                                                </div>
+                                                            </li>
+                                                        </c:forEach>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                     <div class="col-sm-3 my-auto">
-                                        <c:if test="${groupinfo == null && isMentor == false}">
-                                            <a href="${contextPath}/welcome?joinGroup=${groupsAvailables.name}"
-                                               class="btn btn-primary active">Join Group</a>
+                                        <c:if test="${groupinfo == null && isMentor == false && fn:length(groupsAvailables.groupmates)<5 }">
+                                            <span>
+                                            <form:form name="joinGroupForm" method="POST" action="/group/joinGroup" >
+                                                <input type="hidden" name="groupname" value="${groupsAvailables.name}">
+                                                <input type="submit" name="LeaveGroupButton"  class="btn btn-primary active" value="Join Group" />
+                                            </form:form>
+                                            </span>
                                         </c:if>
                                         <c:if test="${isMentor == true}">
-                                            <a href="${contextPath}/welcome?followGroup=${groupsAvailables.name}"
-                                               class="btn btn-primary active">Follow Group</a>
+                                            <span>
+                                                <form:form name="followGroupForm" method="POST" action="/group/followGroup" >
+                                                <input type="hidden" name="groupname" value="${groupsAvailables.name}">
+                                                <input type="submit" name="LeaveGroupButton"  class="btn btn-primary active" value="Follow Group" />
+                                            </form:form>
+                                            </span>
                                         </c:if>
 
                                     </div>
@@ -287,9 +326,9 @@
 
                                         <!-- show mentor badge -->
                                         <c:forEach var="item" items="${users.roles}">
-                                            <c:if test="${item.name eq 'MENTOR'}">
-                                                <span class="badge badge-dark badge-pill">mentor</span>
-                                            </c:if>
+                                        <c:if test="${item.name eq 'MENTOR'}">
+                                        <span class="badge badge-dark badge-pill">mentor</span>
+                                        </c:if>
                                         </c:forEach>
                                         <!-- end mentor badge -->
 
@@ -302,8 +341,10 @@
                                     Degree: <b><c:out value="${users.degreeCourse}"/></b>
                                     <br>
                                     <c:if test="${isAdmin == true}">
-                                        <a href="${contextPath}/welcome?toogleUserMentor=${users.username}"
-                                           class="btn btn-danger active">Toggle Mentor</a>
+                                        <form:form name="toggleMentorForm" method="POST" action="/admin/toggleMentor" >
+                                            <input type="hidden" name="username" value="${users.username}">
+                                            <input type="submit" name="ToggleMentorButton"  class="btn btn-danger active" value="Toggle Mentor" />
+                                        </form:form>
                                     </c:if>
                                     </p>
 
@@ -316,11 +357,11 @@
         </div>
     </div>
 
-        <div class="form-group col-12">
-            <hr>
-        </div>
+    <div class="form-group col-12">
+        <hr>
+    </div>
 
-        <i>In case of problems please send an email to: giobarty@gmail.com</i>
+    <i>In case of problems please send an email to: giobarty@gmail.com</i>
 
 </div>
 <!-- fine row -->

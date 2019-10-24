@@ -67,6 +67,14 @@
 
                 <spring:bind path="telegramGroup">
                     <div class="form-group ${status.error ? 'has-error' : ''}">
+                        <form:input type="text" path="name" class="form-control" placeholder="Group name: ${groupName}"
+                                    autofocus="true"></form:input>
+                        <form:errors path="name"></form:errors>
+                    </div>
+                </spring:bind>
+
+                <spring:bind path="telegramGroup">
+                    <div class="form-group ${status.error ? 'has-error' : ''}">
                         <form:input type="text" path="telegramGroup" class="form-control" placeholder="Telegram group: ${telegramGroup}"
                                     autofocus="true"></form:input>
                         <form:errors path="telegramGroup"></form:errors>
