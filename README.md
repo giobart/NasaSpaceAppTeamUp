@@ -1,7 +1,7 @@
 # NasaSpaceAppChallenge - TeamUp
 Application built to enhance the creation of Teams for the Nasa Space App Challenge
 
-##Configuration
+## Configuration
 Inside the configuration file you can find a dummy mysql database attached 
 and the ssl configuration
 
@@ -14,7 +14,7 @@ to generate the certificate use:
 if you instead already have the certificate use
 `openssl pkcs12 -export -in fullchain.pem -inkey privkey.pem -out keystore.p12 -name tomcat -CAfile chain.pem -caname root`
 
-##Run
+## Run
 
 to run the application just generate the .war package with 
 `mvn install`
