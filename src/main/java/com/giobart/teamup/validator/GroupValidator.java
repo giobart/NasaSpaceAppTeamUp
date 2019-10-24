@@ -27,7 +27,7 @@ public class GroupValidator implements Validator {
 
         //Groupname check
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
-        if (group.getName().length() > 15 || group.getName().length() < 4) {
+        if (group.getName().length() > 30 || group.getName().length() < 4) {
             errors.rejectValue("name", "Groupname.valid");
         }
 
@@ -35,6 +35,12 @@ public class GroupValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
         if (group.getDescription().length() > 50 || group.getDescription().length() < 5) {
             errors.rejectValue("description", "Groupdescription.valid");
+        }
+
+        //groupLink check
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "NotEmpty");
+        if (group.getTelegramGroup().length() > 100) {
+            errors.rejectValue("telegramGroup", "Groupdescription.valid");
         }
 
     }
